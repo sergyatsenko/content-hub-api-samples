@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "3507c01c-8291-4bdf-985f-087d5a42abd2",
+		"name": "Content Hub API Sample Calls",
+		"description": "A collection of basic/foundation calls to Content Hub REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8d48205-467c-48cd-8784-63c385ef82b9",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setGlobalVariable(\"ContentHubIdToken\", jsonData.token);",
+							"postman.setGlobalVariable(\"x-auth-token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_name\":\"{{username}}\",\n\t\"password\":\"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}/api/authenticate",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Entity",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{ContentHubIdToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{hostname}}/api/entities/544",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"entities",
+						"544"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Entity",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{ContentHubIdToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"properties\": {\r\n        \"TagName\": \"indoor_updated\",\r\n        \"TagLabel\": {\r\n            \"en-US\": \"indoor_updated\"\r\n        }\r\n    },\r\n    \"entitydefinition\": {\r\n        \"href\": \"https://{{hostname}}/api/entitydefinitions/M.Tag\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}/api/entities/71299",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"entities",
+						"71299"
+					]
+				},
+				"description": "Sample call to update an existing entity."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Entity",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{ContentHubIdToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"properties\": {\r\n        \"TagName\": \"indoor_updated\",\r\n        \"TagLabel\": {\r\n            \"en-US\": \"indoor_updated\"\r\n        }\r\n    },\r\n    \"entitydefinition\": {\r\n        \"href\": \"https://{{hostname}}/api/entitydefinitions/M.Tag\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}/api/entities/71299",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"entities",
+						"71299"
+					]
+				},
+				"description": "Sample call to update an existing entity."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Entity",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{ContentHubIdToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"properties\": {\r\n        \"TagName\": \"indoor\",\r\n        \"TagLabel\": {\r\n            \"en-US\": \"indoor\"\r\n        }\r\n    },\r\n    \"entitydefinition\": {\r\n        \"href\": \"https://{{hostname}}/M.Tag\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}/api/entities",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"entities"
+					]
+				},
+				"description": "Sample call to create entity"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8cf270c5-6d3c-4457-9388-1807dd0053f5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "02da756a-e70c-4621-ae3b-7f789619cb22",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
